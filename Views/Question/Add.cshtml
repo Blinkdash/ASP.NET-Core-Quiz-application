@@ -1,0 +1,56 @@
+﻿@model Web6.Models.Question
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Добавить вопрос</h2>
+
+@if (ViewBag.NoCategories ?? false)
+{
+    <div class="alert alert-warning">
+        <strong>Внимание!</strong> Нет ни одной категории, поэтому вопрос создать нельзя.<br />
+        Сначала <a asp-controller="Category" asp-action="Add">добавьте категорию</a>.
+    </div>
+}
+else
+{
+    <form asp-action="Add" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="Text"></label>
+            <input asp-for="Text" class="form-control" />
+            <span asp-validation-for="Text" class="text-danger"></span>
+        </div>
+
+        <div class="form-group form-check">
+            <input asp-for="Answer" class="form-check-input" />
+            <label asp-for="Answer" class="form-check-label"></label>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Comment"></label>
+            <textarea asp-for="Comment" class="form-control"></textarea>
+            <span asp-validation-for="Comment" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="CategoryId">Категория</label>
+            <select asp-for="CategoryId"
+                    asp-items="ViewBag.Categories"
+                    class="form-control">
+                <option value="">-- выбрать категорию --</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Сохранить</button>
+        <a asp-action="All" class="btn btn-secondary ml-2">Отмена</a>
+    </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

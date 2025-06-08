@@ -1,0 +1,52 @@
+﻿@model List<Web6.Models.Question>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = (int)ViewData["Count"];
+    var idRange = (int[])ViewData["Id"];
+    var catRange = (int[])ViewData["CategoryId"];
+    var answers = (List<string>)ViewData["Answer"];
+    var texts = (List<string>)ViewData["Text"];
+    var comments = (List<string>)ViewData["Comment"];
+}
+
+<h2>Статистика по вопросам</h2>
+
+<p><strong>Всего вопросов:</strong> @count</p>
+
+<h3>Числовые характеристики</h3>
+<table class="table table-sm table-bordered" style="width:auto">
+    <thead>
+        <tr><th>Свойство</th><th>Мин</th><th>Макс</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Id</td>
+            <td>@idRange[0]</td>
+            <td>@idRange[1]</td>
+        </tr>
+        <tr>
+            <td>CategoryId</td>
+            <td>@catRange[0]</td>
+            <td>@catRange[1]</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Качественные характеристики</h3>
+
+<div class="mb-3">
+    <h4>Comment (уникальные)</h4>
+    <ul>
+        @foreach (var c in comments)
+        {
+            <li>@c</li>
+        }
+    </ul>
+</div>
+
+<div class="mt-4">
+    <a asp-controller="Question" asp-action="All" class="btn btn-primary">К списку вопросов</a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ml-2">Главная</a>
+</div>

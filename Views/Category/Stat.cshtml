@@ -1,0 +1,43 @@
+﻿@model List<Web6.Models.Category>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var count = (int)ViewData["Count"];
+    var idRange = (int[])ViewData["Id"];
+    var titles = (List<string>)ViewData["Title"];
+    var descriptions = (List<string>)ViewData["Description"];
+}
+
+<h2>Статистика по категориям</h2>
+
+<p><strong>Всего категорий:</strong> @count</p>
+
+<h3>Числовые характеристики</h3>
+<table class="table table-sm table-bordered" style="width:auto">
+    <thead>
+        <tr><th>Свойство</th><th>Мин</th><th>Макс</th></tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Id</td>
+            <td>@idRange[0]</td>
+            <td>@idRange[1]</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Качественные характеристики</h3>
+
+<div class="mb-3">
+    <h4>Description (уникальные)</h4>
+    <ul>
+        @foreach (var d in descriptions)
+        {
+            <li>@d</li>
+        }
+    </ul>
+</div>
+
+<a asp-controller="Category" asp-action="All" class="btn btn-primary">К списку категорий</a>
+<a asp-controller="Home" asp-action="Index" class="btn btn-secondary ml-2">Главная</a>

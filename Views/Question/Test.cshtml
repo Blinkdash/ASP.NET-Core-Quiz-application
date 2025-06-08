@@ -1,0 +1,75 @@
+﻿@model List<Web6.Models.Question>
+@using Microsoft.AspNetCore.Mvc.Rendering
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var categories = ViewBag.Categories as List<SelectListItem>;
+    int selectedCat = (int)ViewBag.CategoryId;
+    int n = (int)ViewBag.N;
+}
+
+<h2>Тестирование вопросов</h2>
+
+<form asp-action="Test" method="get" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <label>
+            Категория:&nbsp;
+            <select name="CategoryId" class="form-control">
+                <option value="0" selected="@(selectedCat == 0 ? "selected" : null)">Все</option>
+                @foreach (var c in categories)
+                {
+                    <option value="@c.Value" selected="@(c.Selected ? "selected" : null)">
+                        @c.Text
+                    </option>
+                }
+            </select>
+        </label>
+    </div>
+    <div class="form-group mr-2">
+        <label>
+            Макс. вопросов:&nbsp;
+            <input type="number" name="n" value="@n" min="1" class="form-control" style="width:80px" />
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Начать тест</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ml-3">Главная</a>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <form asp-action="Test" method="post">
+        <input type="hidden" name="CategoryId" value="@selectedCat" />
+        <input type="hidden" name="n" value="@n" />
+
+        <table class="table table-striped">
+            <thead>
+                <tr><th>#</th><th>Вопрос</th><th>Ваш ответ</th></tr>
+            </thead>
+            <tbody>
+                @for (var i = 0; i < Model.Count; i++)
+                {
+                    var q = Model[i];
+                    <tr>
+                        <td>@(i + 1)</td>
+                        <td>@q.Text</td>
+                        <td>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                       name="answer_@q.Id" id="ans_true_@q.Id" value="True" required />
+                                <label class="form-check-label" for="ans_true_@q.Id">True</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio"
+                                       name="answer_@q.Id" id="ans_false_@q.Id" value="False" />
+                                <label class="form-check-label" for="ans_false_@q.Id">False</label>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <button type="submit" class="btn btn-success">Завершить тест</button>
+    </form>
+}

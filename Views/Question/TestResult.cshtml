@@ -1,0 +1,17 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int total = (int)ViewBag.Total;
+    int correct = (int)ViewBag.Correct;
+    int wrong = (int)ViewBag.Wrong;
+}
+
+<h2>Результаты теста</h2>
+
+<p><strong>Всего вопросов:</strong> @total</p>
+<p><strong>Правильных ответов:</strong> <span class="text-success">@correct</span></p>
+<p><strong>Неправильных ответов:</strong> <span class="text-danger">@wrong</span></p>
+
+<a asp-action="Test" class="btn btn-primary">Пройти тест заново</a>
+<a asp-action="All" class="btn btn-secondary ml-2">К списку вопросов</a>

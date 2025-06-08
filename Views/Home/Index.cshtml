@@ -1,0 +1,19 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Добро пожаловать в Web6</h1>
+
+<p>Выберите раздел:</p>
+<ul>
+    <li><a asp-controller="Category" asp-action="All">Работа с категориями</a></li>
+    <li><a asp-controller="Question" asp-action="All">Работа с вопросами</a></li>
+    <li><a asp-controller="Question" asp-action="Test">Тестирование</a></li>
+</ul>
+
+<p class="mt-4">
+    <a asp-controller="Question" asp-action="Stat" class="btn btn-info">Статистика по вопросам</a>
+    <a asp-controller="Category" asp-action="Stat" class="btn btn-info ml-2">Статистика по категориям</a>
+</p>

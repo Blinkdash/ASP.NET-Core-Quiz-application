@@ -1,0 +1,28 @@
+﻿@model Web6.Models.Category
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Детали категории</h2>
+
+<dl class="row">
+    <dt class="col-sm-2">Id</dt>
+    <dd class="col-sm-10">@Model.Id</dd>
+
+    <dt class="col-sm-2">Title</dt>
+    <dd class="col-sm-10">@Model.Title</dd>
+
+    <dt class="col-sm-2">Description</dt>
+    <dd class="col-sm-10">@Model.Description</dd>
+</dl>
+
+<div class="mt-4">
+    <a asp-controller="Category" asp-action="All" class="btn btn-primary">
+        К списку категорий
+    </a>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ml-2">
+        Главная
+    </a>
+</div>

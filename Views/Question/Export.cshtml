@@ -1,0 +1,32 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int n = (int)(ViewBag.N ?? 0);
+    string sort = (string)ViewBag.Sort ?? "";
+}
+
+<h2>Экспорт вопросов в JSON</h2>
+
+<form asp-action="Export" method="post" class="form-inline mb-3">
+    <div class="form-group mr-2">
+        <label>
+            Макс. количество:&nbsp;
+            <input type="number" name="n" value="@n" min="0"
+                   class="form-control" style="width:80px" />
+        </label>
+    </div>
+    <div class="form-group mr-2">
+        <label>
+            Сортировать по:&nbsp;
+            <select name="sort" class="form-control">
+                <option value="" selected="@(string.IsNullOrEmpty(sort)       ? "selected" : null)">Id</option>
+                <option value="Text" selected="@(sort == "Text"       ? "selected" : null)">Text</option>
+                <option value="Answer" selected="@(sort == "Answer"     ? "selected" : null)">Answer</option>
+                <option value="Category" selected="@(sort == "Category"   ? "selected" : null)">Category</option>
+            </select>
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary">Скачать JSON</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ml-3">Главная</a>
+</form>
